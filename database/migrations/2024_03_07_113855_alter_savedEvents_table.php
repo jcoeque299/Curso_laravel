@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('saved', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-            $table->string('eventName');
-            $table->string('eventLocation');
-            $table->string('eventDate');
-            $table->string('eventImage');
+        Schema::table('saved_events', function (Blueprint $table) {
+            $table->unsignedBigInteger('userId');
+            $table->foreign('userId')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -26,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('saved');
+        //
     }
 };
