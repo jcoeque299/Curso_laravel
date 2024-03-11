@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\TicketController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SavedController;
 use Illuminate\Http\Request;
@@ -32,3 +33,7 @@ Route::delete('/users/{id}', [UserController::class, 'destroy']);
 Route::get('/saved', [SavedController::class, 'index']);
 Route::post('/saved', [SavedController::class, 'store']);
 Route::delete('/saved/{id}', [SavedController::class, 'destroy']);
+
+Route::get('/tickets', [TicketController::class, 'index']);
+Route::post('/tickets', [TicketController::class, 'store']);
+Route::delete('/tickets/{id}', [TicketController::class, 'destroy']);

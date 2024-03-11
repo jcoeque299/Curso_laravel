@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class savedEvents extends Model
+class tickets extends Model
 {
     use HasFactory;
 
-    protected $table = "saved_events";
+    protected $table = "tickets";
 
     public function user() {
         return $this->belongsTo(User::class);
