@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ApiController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SavedController;
@@ -26,10 +27,6 @@ Route::get('/comments', [ApiController::class, 'index']);
 Route::post('/comments', [ApiController::class, 'store']);
 Route::delete('/comments/{id}', [ApiController::class, 'destroy']);
 
-Route::get('/users', [UserController::class, 'index']);
-Route::post('/users', [UserController::class, 'store']);
-Route::delete('/users/{id}', [UserController::class, 'destroy']);
-
 Route::get('/saved', [SavedController::class, 'index']);
 Route::post('/saved', [SavedController::class, 'store']);
 Route::delete('/saved/{id}', [SavedController::class, 'destroy']);
@@ -37,3 +34,12 @@ Route::delete('/saved/{id}', [SavedController::class, 'destroy']);
 Route::get('/tickets', [TicketController::class, 'index']);
 Route::post('/tickets', [TicketController::class, 'store']);
 Route::delete('/tickets/{id}', [TicketController::class, 'destroy']);
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/user', [AuthController::class, 'user']);
+    Route::post('logout', [AuthController::class, 'logout']);
+});
+
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/login', [AuthController::class, 'register']);
