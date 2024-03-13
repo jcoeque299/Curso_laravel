@@ -43,6 +43,7 @@ class AuthController extends Controller
 
         if($user) {
             return response()->json([
+                'id' =>$user->id,
                 'name' => $user->name,
                 'email' => $user->email
             ]);
@@ -53,7 +54,7 @@ class AuthController extends Controller
     }
 
     public function logout(Request $request) {
-        Auth::logout();
+        auth()->guard('web')->logout();
         return response()->json(['message'=> 'Se ha cerrado sesion']);
     }
 }

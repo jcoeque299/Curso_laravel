@@ -9,9 +9,9 @@ class tickets extends Model
 {
     use HasFactory;
 
-    protected $table = "tickets";
+    // protected $table = "tickets";
 
-    public function user() {
-        return $this->belongsTo(User::class);
-    }
+    // public function user() {
+    //     return $this->belongsTo(User::class);
+    // }
 }

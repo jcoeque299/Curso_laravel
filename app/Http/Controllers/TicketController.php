@@ -16,11 +16,9 @@ class TicketController extends Controller
         try {
             $request->validate([
                 'contactEmail' => 'required|string',
-                'userId' => 'required|string',
                 'text' => 'required|string'
             ]);
             $ticket = new Tickets();
-            $ticket->userId = $request->input('userId');
             $ticket->contactEmail = $request->input('contactEmail');
             $ticket->text = $request->input('text');
             $ticket->save();
