@@ -7,13 +7,16 @@ use App\Models\comments;
 
 class ApiController extends Controller
 {
-    public function index(){
-        $comments = Comments::orderBy("created_at","desc")->paginate(10);
+    public function index($eventId){
+        //Por algun motivo, solo el primer registro de un comentario enviado desde la pagina, despues de hacer un migrate refresh, incluye todo el objeto user
+        $comments = Comments::where("eventId", "=", $eventId)->get();
+        //$comments = Comments::with("user:id,name")->get();
+        //$comments = $comments::orderBy("created_at","desc")->paginate(10);
         return response()->json($comments);
     }
 
     public function store(Request $request){
-        // try {
+        try {
             $request->validate([
                 'commentText' => 'required|string',
                 'userId' => 'required|integer',
@@ -25,10 +28,10 @@ class ApiController extends Controller
             $comment->userId = $request->input('userId');
             $comment->save();
             return response()->json($comment,201);
-        // }
-        // catch(\Exception $e) {
-        //     return response()->json(['error' => 'Error en el formato de la request'], 500);
-        // }
+        }
+        catch(\Exception $e) {
+            return response()->json(['error' => 'Error en el formato de la request'], 500);
+        }
     }
 
     public function destroy($id) {

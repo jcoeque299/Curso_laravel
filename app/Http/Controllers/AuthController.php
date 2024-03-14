@@ -33,7 +33,9 @@ class AuthController extends Controller
 
         if(Auth::attempt($credentials)) {
             $user = Auth::user();
-            $token = $user->createToken('authToken')->plainTextToken;
+            $date = new DateTime("NOW");
+            $date->modify("+1 day");
+            $token = $user->createToken('authToken',["*"],$date)->plainTextToken;
             return response()->json(['message'=> 'Login OK', 'token' => $token],200);
         }
         else{

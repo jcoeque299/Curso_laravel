@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::get('/comments', [ApiController::class, 'index']);
+Route::get('/comments/{eventId}', [ApiController::class, 'index']);
 Route::post('/comments', [ApiController::class, 'store']);
 Route::delete('/comments/{id}', [ApiController::class, 'destroy']);
 
