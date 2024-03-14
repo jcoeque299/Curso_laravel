@@ -13,7 +13,7 @@ class ApiController extends Controller
     }
 
     public function store(Request $request){
-        try {
+        // try {
             $request->validate([
                 'commentText' => 'required|string',
                 'userId' => 'required|integer',
@@ -25,10 +25,10 @@ class ApiController extends Controller
             $comment->userId = $request->input('userId');
             $comment->save();
             return response()->json($comment,201);
-        }
-        catch(\Exception $e) {
-            return response()->json(['error' => 'Error en el formato de la request'], 500);
-        }
+        // }
+        // catch(\Exception $e) {
+        //     return response()->json(['error' => 'Error en el formato de la request'], 500);
+        // }
     }
 
     public function destroy($id) {

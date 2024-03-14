@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DateTime;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -21,7 +22,9 @@ class AuthController extends Controller
             'password' => Hash::make($request->password),
             // 'adminRights' => $request->adminRights
         ]);
-        $token = $user->createToken('authToken')->plainTextToken;
+        $date = new DateTime("NOW");
+        $date->modify("+1 day");
+        $token = $user->createToken('authToken',["*"],$date)->plainTextToken;
         return response()->json(['message' => 'Usuario registrado', 'token' => $token],200);
     }
 
