@@ -4,14 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\comments;
+use Illuminate\Support\Facades\DB;
 
 class ApiController extends Controller
 {
     public function index($eventId){
-        //Por algun motivo, solo el primer registro de un comentario enviado desde la pagina, despues de hacer un migrate refresh, incluye todo el objeto user
-        $comments = Comments::where("eventId", "=", $eventId)->get();
-        //$comments = Comments::with("user:id,name")->get();
-        //$comments = $comments::orderBy("created_at","desc")->paginate(10);
+        $comments = DB::table("comments")->join("users", "users.id", "comments.userId")->select("comments.commentText", "users.name")->where("eventId", "=", $eventId)->get();
         return response()->json($comments);
     }
 

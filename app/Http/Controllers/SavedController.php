@@ -7,8 +7,9 @@ use App\Models\savedEvents;
 
 class SavedController extends Controller
 {
-    public function index(){
-        $saved = SavedEvents::orderBy("created_at","desc")->paginate(10);
+    public function index($userId){
+        //$saved = SavedEvents::orderBy("created_at","desc")->paginate(10);
+        $saved = SavedEvents::where("userId", "=", $userId)->get();
         return response()->json($saved);
     }
 
@@ -16,7 +17,7 @@ class SavedController extends Controller
         try {
             $request->validate([
                 'eventId' => 'required|string',
-                'userId' => 'required|string',
+                'userId' => 'required|integer',
             ]);
             $saved = new SavedEvents();
             $saved->userId = $request->input('userId');

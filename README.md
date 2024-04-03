@@ -64,3 +64,14 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+# Env variables
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=6033
+DB_DATABASE=app_db
+DB_USERNAME=root
+DB_PASSWORD=my_secret_password
+
+Cambiar .env.example a .env

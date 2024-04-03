@@ -27,7 +27,7 @@ Route::get('/comments/{eventId}', [ApiController::class, 'index']);
 Route::post('/comments', [ApiController::class, 'store']);
 Route::delete('/comments/{id}', [ApiController::class, 'destroy']);
 
-Route::get('/saved', [SavedController::class, 'index']);
+Route::get('/saved/{userId}', [SavedController::class, 'index']);
 Route::post('/saved', [SavedController::class, 'store']);
 Route::delete('/saved/{id}', [SavedController::class, 'destroy']);
 
