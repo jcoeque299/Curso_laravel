@@ -14,10 +14,10 @@ class UsersTableSeeder extends Seeder
     public function run(): void
     {
         DB::table('users')->insert([
-            'name' => 'woodielassie',
-            'email' => 'jcoelloquesada@gmail.com',
-            'password' => '12345',
-            'adminRights' => true
+            'name' => 'admin',
+            'email' => 'admin@gmail.com',
+            'password' => '$2y$12$UDztMb.QbgIJKevx1obmV.qvru0qm1xnuoNQkKzRz5XYdHtXD1ltm',
+            'role' => 'admin'
         ]);
     }
 }

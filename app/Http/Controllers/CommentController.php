@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\comments;
 use Illuminate\Support\Facades\DB;
 
-class ApiController extends Controller
+class CommentController extends Controller
 {
     public function index($eventId){
         $comments = DB::table("comments")->join("users", "users.id", "comments.userId")->select("comments.commentText", "users.name")->where("eventId", "=", $eventId)->get();

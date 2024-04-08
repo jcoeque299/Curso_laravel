@@ -58,6 +58,19 @@ class AuthController extends Controller
         }
     }
 
+    public function getRole(Request $request) {
+        $user = $request->user();
+
+        if ($user) {
+            return response()->json([
+                'role' =>$user->role
+            ]);
+        }
+        else {
+            return response()->json(['message'=> 'Usuario no autenticado'],401);
+        }
+    }
+
     public function logout(Request $request) {
         auth()->guard('web')->logout();
         return response()->json(['message'=> 'Se ha cerrado sesion']);

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ApiController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\UserController;
@@ -23,20 +23,21 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::get('/comments/{eventId}', [ApiController::class, 'index']);
-Route::post('/comments', [ApiController::class, 'store']);
-Route::delete('/comments/{id}', [ApiController::class, 'destroy']);
+Route::get('/comments/{eventId}', [CommentController::class, 'index']);
+Route::post('/comments', [CommentController::class, 'store']);
+Route::delete('/comments/{id}', [CommentController::class, 'destroy']);
 
 Route::get('/saved/{userId}', [SavedController::class, 'index']);
 Route::post('/saved', [SavedController::class, 'store']);
 Route::delete('/saved/{id}', [SavedController::class, 'destroy']);
 
-Route::get('/tickets', [TicketController::class, 'index']);
+Route::get('/tickets', [TicketController::class, 'index'])->middleware('checkRole:admin');
 Route::post('/tickets', [TicketController::class, 'store']);
-Route::delete('/tickets/{id}', [TicketController::class, 'destroy']);
+Route::delete('/tickets/{id}', [TicketController::class, 'destroy'])->middleware('checkRole:admin');
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/user', [AuthController::class, 'user']);
+    Route::get('/user/role', [AuthController::class, 'getRole']);
     Route::post('logout', [AuthController::class, 'logout']);
 });
 
