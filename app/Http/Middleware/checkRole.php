@@ -16,11 +16,12 @@ class checkRole
     public function handle(Request $request, Closure $next, ...$roles)
     {
 
-        $user = $request->user();
+        $user = $request->user('api');
 
         if (! $user || ! in_array($user->role, $roles)) {
             dump($roles);
             dump($request);
+            dump($user);
             abort(403, 'Unauthorized');
         }
 

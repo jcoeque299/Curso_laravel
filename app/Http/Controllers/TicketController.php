@@ -8,7 +8,7 @@ use App\Models\tickets;
 class TicketController extends Controller
 {
     public function index(){
-        $ticket = Tickets::orderBy("created_at","desc")->paginate(10);
+        $ticket = Tickets::orderBy("created_at","desc")->get();
         return response()->json($ticket);
     }
 

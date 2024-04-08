@@ -75,3 +75,7 @@ DB_USERNAME=root
 DB_PASSWORD=my_secret_password
 
 Cambiar .env.example a .env
+
+# Usar con insomnia
+
+Hay endpoints protegidos que necesitan un token de autorización del usuario. Si se quiere usar insomnia, hay que tener cuidado de no extraerlo ni directamente de la base de datos o del almacenamiento de cookies del navegador, ya que no lo detectará como válido. Una forma es usando las devtools para copiar el token después de hacer una petición a uno de estos endpoints desde el navegador, dentro de la página web
