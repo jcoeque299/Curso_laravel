@@ -14,13 +14,14 @@ class AuthController extends Controller
         $this->validate($request, [
             'name' => 'required|string|max:255',
             'email'=> 'required|string|email|max:255',
-            'password' => 'required|string|min:8'
+            'password' => 'required|string|min:8',
+            'location' => 'required|string'
         ]);
         $user = User::create([
             'name'=> $request->name,
             'email'=> $request->email,
             'password' => Hash::make($request->password),
-            // 'adminRights' => $request->adminRights
+            'location' => $request->location
         ]);
         $date = new DateTime("NOW");
         $date->modify("+1 day");
@@ -50,7 +51,8 @@ class AuthController extends Controller
             return response()->json([
                 'id' =>$user->id,
                 'name' => $user->name,
-                'email' => $user->email
+                'email' => $user->email,
+                'location' => $user->location
             ]);
         }
         else {
@@ -58,6 +60,7 @@ class AuthController extends Controller
         }
     }
 
+    //Eliminar
     public function getRole(Request $request) {
         $user = $request->user();
 
