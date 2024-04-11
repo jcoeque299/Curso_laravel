@@ -26,7 +26,7 @@ class AuthController extends Controller
         $date = new DateTime("NOW");
         $date->modify("+1 day");
         $token = $user->createToken('authToken',["*"],$date)->plainTextToken;
-        return response()->json(['message' => 'Usuario registrado', 'token' => $token],200);
+        return response()->json(['message' => 'Usuario registrado', 'token' => $token, 'statusCode' => 200],200);
     }
 
     public function login (Request $request) {
@@ -37,10 +37,10 @@ class AuthController extends Controller
             $date = new DateTime("NOW");
             $date->modify("+1 day");
             $token = $user->createToken('authToken',["*"],$date)->plainTextToken;
-            return response()->json(['message'=> 'Login OK', 'token' => $token],200);
+            return response()->json(['message'=> 'Login OK', 'token' => $token, 'statusCode' => 200],200);
         }
         else{
-            return response()->json(['message'=> 'Login error'],401);
+            return response()->json(['message'=> 'Login error', 'statusCode' => 401],401);
         }
     }
 
@@ -56,7 +56,7 @@ class AuthController extends Controller
             ]);
         }
         else {
-            return response()->json(['message'=> 'Usuario no autenticado'],401);
+            return response()->json(['message'=> 'Usuario no autenticado', 'statusCode' => 401],401);
         }
     }
 
@@ -70,12 +70,14 @@ class AuthController extends Controller
             ]);
         }
         else {
-            return response()->json(['message'=> 'Usuario no autenticado'],401);
+            return response()->json(['message'=> 'Usuario no autenticado', 'statusCode' => 401],401);
         }
     }
 
     public function logout(Request $request) {
-        auth()->guard('web')->logout();
-        return response()->json(['message'=> 'Se ha cerrado sesion']);
+        auth()->user()->tokens->each(function ($token, $key) {
+            $token->delete();
+        });
+        return response()->json(['message'=> 'Se ha cerrado sesion', 'statusCode' => 200], 200);
     }
 }

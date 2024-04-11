@@ -33,7 +33,7 @@ Route::delete('/saved/{id}', [SavedController::class, 'destroy']);
 
 Route::get('/tickets', [TicketController::class, 'index'])->middleware('checkRole:admin');
 Route::post('/tickets', [TicketController::class, 'store']);
-Route::delete('/tickets/{id}', [TicketController::class, 'destroy'])->middleware('checkRole:admin');
+Route::delete('/tickets/{eventId}', [TicketController::class, 'destroy'])->middleware('checkRole:admin');
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/user', [AuthController::class, 'user']);

@@ -28,16 +28,16 @@ class CommentController extends Controller
             return response()->json($comment,201);
         }
         catch(\Exception $e) {
-            return response()->json(['error' => 'Error en el formato de la request'], 500);
+            return response()->json(['error' => 'Error en el formato de la request', 'statusCode' => 400], 400);
         }
     }
 
     public function destroy($id) {
         $comment = comments::find($id);
         if(!$comment){
-            return response()->json(['message'=> 'El comentario no existe'],404);
+            return response()->json(['message'=> 'El comentario no existe', 'statusCode' => 404],404);
         }
         $comment->delete();
-        return response()->json(['message'=> ''],200);
+        return response()->json(['message'=> 'El comentario ha sido borrado', 'statusCode' => 200],200);
     }
 }

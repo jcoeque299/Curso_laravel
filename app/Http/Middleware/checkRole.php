@@ -19,10 +19,7 @@ class checkRole
         $user = $request->user('api');
 
         if (! $user || ! in_array($user->role, $roles)) {
-            dump($roles);
-            dump($request);
-            dump($user);
-            abort(403, 'Unauthorized');
+            return response()->json(['message' => 'Forbidden', 'statusCode' => 403],403);
         }
 
         return $next($request);

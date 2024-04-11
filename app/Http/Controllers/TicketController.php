@@ -25,7 +25,7 @@ class TicketController extends Controller
             return response()->json($ticket,201);
         }
         catch(\Exception $e) {
-            return response()->json(['error' => 'Error en el formato de la request'], 500);
+            return response()->json(['error' => 'Error en el formato de la request', 'statusCode' => 400], 400);
         }
     }
 
@@ -35,6 +35,6 @@ class TicketController extends Controller
             return response()->json(['message'=> 'El ticket guardado no existe'],404);
         }
         $ticket->delete();
-        return response()->json(['message'=> ''],200);
+        return response()->json(['message'=> 'El ticket ha sido borrado', 'statusCode' => 200],200);
     }
 }
