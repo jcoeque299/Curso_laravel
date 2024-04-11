@@ -30,9 +30,13 @@ class SavedController extends Controller
         }
     }
 
-    public function destroy($id) {
-        $saved = SavedEvents::find($id);
-        if(!$saved){
+    public function destroy(Request $request, $id) {
+        $user = $request->user('api');
+        if(!$user) {
+            return response()->json(['error'=> 'Unauthorized'],403);
+        }
+        $saved = SavedEvents::where("id", "=", $id)->where("userId", "=", $user->id);
+        if(!$saved->count()){
             return response()->json(['message'=> 'El evento guardado no existe'],404);
         }
         $saved->delete();
