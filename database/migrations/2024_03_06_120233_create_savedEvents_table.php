@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('eventId');
+            $table->string('eventName');
+            $table->string('eventImageSource');
         });
     }
 

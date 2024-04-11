@@ -16,6 +16,8 @@ class SavedController extends Controller
         try {
             $request->validate([
                 'eventId' => 'required|string',
+                'eventName' => 'required|string',
+                'eventImageSource' => 'required|string',
                 'userId' => 'required|integer',
             ]);
             $isSaved = SavedEvents::where("eventId", "=", $request->input('eventId'))->where("userId", "=", $request->input('userId'));
@@ -25,6 +27,8 @@ class SavedController extends Controller
             $saved = new SavedEvents();
             $saved->userId = $request->input('userId');
             $saved->eventId = $request->input('eventId');
+            $saved->eventName = $request->input('eventName');
+            $saved->eventImageSource = $request->input('eventImageSource');
             $saved->save();
             return response()->json($saved,201);
         }
