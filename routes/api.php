@@ -25,11 +25,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/comments/{eventId}', [CommentController::class, 'index']);
 Route::post('/comments', [CommentController::class, 'store']);
-Route::delete('/comments/{id}', [CommentController::class, 'destroy']);
+Route::delete('/comments/{id}', [CommentController::class, 'destroy'])->middleware('checkRole:admin');
 
 Route::get('/saved/{userId}', [SavedController::class, 'index']);
 Route::post('/saved', [SavedController::class, 'store']);
-Route::delete('/saved/{id}', [SavedController::class, 'destroy']);
+Route::delete('/saved/{id}', [SavedController::class, 'destroy'])->middleware('checkRole:admin');
 
 Route::get('/tickets', [TicketController::class, 'index'])->middleware('checkRole:admin');
 Route::post('/tickets', [TicketController::class, 'store']);
